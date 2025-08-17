@@ -180,3 +180,8 @@ hookCarouselButtons();
     document.getElementById('bk-destination').value = 'Portugalia';
   });
 })();
+// apelăm funcția go() pe baza hash-ului din URL sau default "europa"
+document.addEventListener("DOMContentLoaded", () => {
+  const initialRoute = (location.hash || "#europa").substring(1);
+  go(initialRoute);
+});
