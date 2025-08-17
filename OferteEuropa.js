@@ -41,7 +41,7 @@ const ROUTES = {
     label: "Europa",
     path: ["Acasă", "Europa"],
     // dacă vrei să facă și scroll în pagină
-    target: "#null"   // (secțiunea cu cardurile Europa)
+    target: "#toate-ofertele"   // (secțiunea cu cardurile Europa)
   },
   rezervari: {
     label: "Rezervări",
