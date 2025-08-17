@@ -39,9 +39,9 @@ const ROUTES = {
   },
   Europa: {
     label: "Europa",
-    path: ["Acasă","Oferte","Europa"],
+    path: ["Acasă", "Oferte", "Europa"],
     // dacă vrei să facă și scroll în pagină
-    target: "#toate-ofertele"   // (secțiunea cu cardurile Europa)
+    target: null  // (secțiunea cu cardurile Europa)
   },
   rezervari: {
     label: "Rezervări",
@@ -56,17 +56,21 @@ const ROUTES = {
 };
 // refs
 const bcEl = document.getElementById("rv-bc");
-const menuLinks = document.querySelectorAll('[data-route]');
 
 function go(route) {
-  const key = ROUTES[route] ? route : "Europa";  // <- fallback pe europa
+  const key = ROUTES[route] ? route : "Europa";  // fallback pe Europa
   const trail = ROUTES[key].path;
+
+  if (!bcEl) return;
   bcEl.innerHTML = trail
     .map((seg, i) => {
       const isLast = i === trail.length - 1;
       if (isLast) return `<span aria-current="page">${seg}</span>`;
-      const href = i === 0 ? "#acasa" : "#";
-      return `<a href="${href}" data-route="${i===0 ? 'acasa' : ''}">${seg}</a><span class="rv-breadcrumbs__sep">/</span>`;
+      // seg -> cheie route pentru click
+      const routeKey =
+        seg === "Acasă"  ? "acasa"  :
+        seg === "Oferte" ? "oferte" : "";
+      return `<a href="#" data-route="${routeKey}">${seg}</a><span class="rv-breadcrumbs__sep">/</span>`;
     })
     .join("");
 
@@ -83,24 +87,22 @@ window.addEventListener("popstate", () => {
 // init pe load
 go((location.hash || "#Europa").substring(1));
 
+document.addEventListener("click", (e) => {
+  const a = e.target.closest("a[data-route]");
+  if (!a) return;
 
-menuLinks.forEach(a => {
-  a.addEventListener("click", (e) => {
-    e.preventDefault();
-    const route = a.dataset.route || "acasa";
-    const cfg = ROUTES[route];
+  e.preventDefault();
+  const route = a.dataset.route || "acasa";
+  const cfg = ROUTES[route];
 
-    // dacă ruta are redirect -> mergem înapoi în index.html
-    if (cfg && cfg.redirect) {
-      window.location.href = cfg.redirect;
-      return; // ieșim, nu mai facem nimic pe pagina curentă
-    }
-
-    // altfel: rulăm routing local (breadcrumb + scroll) și închidem meniul
-    go(route);
-    closeMenu();
-  });
+  if (cfg && cfg.redirect) {
+    window.location.href = cfg.redirect;   // Acasă -> index.html, Oferte -> index.html#toate-ofertele
+    return;
+  }
+  go(route);  // randează breadcrumb local (când e cazul)
+  closeMenu();
 });
+
 // Mini-control pentru carusel: butoane prev/next
 function hookCarouselButtons(){
   document.querySelectorAll('.carousel-btn').forEach(btn => {
