@@ -26,13 +26,26 @@ document.addEventListener('keydown', (e)=>{
 // etichete drăguțe pentru rute
 // etichete drăguțe pentru rute + țintă pentru scroll
 const ROUTES = {
-  acasa:   { label: "Acasă",       path: ["Acasă"],              target: null },
-  "despre-noi": { label: "Despre noi", path: ["Acasă","Despre noi"], target: "#despre-noi" },
-  oferte:  { label: "Oferte",      path: ["Acasă","Oferte"],     target: "#ct-caro" },
-  rezervari: { label: "Rezervări",
-             path: ["Acasă", "Rezervări"],
-             target: "#eu-booking" },
-  termeni: { label: "Termeni și condiții", path: ["Acasă","Termeni și condiții"], target: null }
+  acasa: { 
+    label: "Acasă", 
+    path: ["Acasă"], 
+    redirect: "index.html" 
+  },
+  oferte: { 
+    label: "Oferte", 
+    path: ["Acasă", "Oferte"], 
+    redirect: "index.html#toate-ofertele" 
+  },
+  rezervari: { 
+    label: "Rezervări", 
+    path: ["Acasă", "Rezervări"], 
+    target: "#eu-booking" 
+  },
+  termeni: { 
+    label: "Termeni și condiții", 
+    path: ["Acasă", "Termeni și condiții"], 
+    target: null 
+  }
 };
 // refs
 const bcEl = document.getElementById("rv-bc");
@@ -66,15 +79,6 @@ function go(route) {
   }
 }
 
-// click pe linkurile din meniu
-menuLinks.forEach(a => {
-  a.addEventListener("click", (e) => {
-    e.preventDefault();
-    const route = a.dataset.route || "acasa";
-    if (location.hash !== `#${route}`) history.pushState(null, "", `#${route}`);
-    go(route);
-  });
-});
 // navigare din butoanele back/forward
 window.addEventListener("popstate", () => {
   go((location.hash || "#acasa").substring(1));
@@ -87,7 +91,15 @@ menuLinks.forEach(a => {
   a.addEventListener("click", (e) => {
     e.preventDefault();
     const route = a.dataset.route || "acasa";
-    if (location.hash !== `#${route}`) history.pushState(null, "", `#${route}`);
+    const cfg = ROUTES[route];
+
+    // dacă ruta are redirect -> mergem înapoi în index.html
+    if (cfg && cfg.redirect) {
+      window.location.href = cfg.redirect;
+      return; // ieșim, nu mai facem nimic pe pagina curentă
+    }
+
+    // altfel: rulăm routing local (breadcrumb + scroll) și închidem meniul
     go(route);
     closeMenu();
   });
