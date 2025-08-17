@@ -26,30 +26,32 @@ document.addEventListener('keydown', (e)=>{
 // etichete drăguțe pentru rute
 // etichete drăguțe pentru rute + țintă pentru scroll
 const ROUTES = {
-  acasa: { 
-    label: "Acasă", 
-    path: ["Acasă"], 
-    redirect: "index.html" 
+  acasa: {
+    label: "Acasă",
+    path: ["Acasă"],
+    redirect: "index.html"
+  },
+  oferte: {
+    label: "Oferte",
+    path: ["Acasă", "Oferte"],
+    // trimite înapoi în index, la caruselul Toate ofertele
+    redirect: "index.html#toate-ofertele"
   },
   europa: {
     label: "Europa",
     path: ["Acasă", "Europa"],
-    target: "null"
+    // dacă vrei să facă și scroll în pagină
+    target: "#oferte-europa"   // (secțiunea cu cardurile Europa)
   },
-  oferte: { 
-    label: "Oferte", 
-    path: ["Acasă", "Oferte"], 
-    redirect: "index.html#toate-ofertele" 
+  rezervari: {
+    label: "Rezervări",
+    path: ["Acasă", "Rezervări"],
+    target: "#eu-booking"
   },
-  rezervari: { 
-    label: "Rezervări", 
-    path: ["Acasă", "Rezervări"], 
-    target: "#eu-booking" 
-  },
-  termeni: { 
-    label: "Termeni și condiții", 
-    path: ["Acasă", "Termeni și condiții"], 
-    target: null 
+  termeni: {
+    label: "Termeni și condiții",
+    path: ["Acasă", "Termeni și condiții"],
+    target: "#termeni"         // dacă ai secțiune; altfel lasă null
   }
 };
 // refs
