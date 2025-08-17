@@ -1,0 +1,550 @@
+/* ===== Design tokens (din vechiul site) ===== */
+:root{
+  --mango:#FFA63D;
+  --mango-deep:#FF8A00;
+  --sky:#58C6FF;
+  --aqua:#00D1C1;
+  --ink:#0E1726;
+  --paper:#F9FBFF;
+  --radius:20px;
+  --shadow:0 8px 24px rgba(10,27,44,.2);
+}
+
+*{ box-sizing:border-box; }
+html,body{ 
+  min-height: 100%;
+  margin:0; }
+
+/* ===== BACKGROUND din vechiul site (pe TOT) ===== */
+body{
+  color:#EAF6FF;
+  background:
+    linear-gradient(160deg, var(--mango) 0%, var(--mango-deep) 30%, #0b2a4a 100%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+
+/* container general */
+.container{ width:min(1100px,92%); margin-inline:auto; 
+padding: 0 16px;
+}
+
+/* ===== HEADER sticky ===== */
+.rv-header{
+  position:sticky; top:0; z-index:1000;
+  background:rgba(8,18,30,.55);
+  backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.rv-header__inner{
+  display:grid;
+  grid-template-columns:auto 1fr auto; /* logo | tagline | burger */
+  align-items:center;
+  gap:14px;
+  padding:10px 0;
+  position:relative; /* ancoră pentru panoul de meniu */
+}
+
+/* Logo + AGENCY (stivuit și centrat) */
+.rv-logo{
+  display:flex; flex-direction:column; align-items:center; gap:2px;
+  text-decoration:none; color:#fff;
+}
+.rv-logo__img{ height:60px; width:auto; display:block; }
+.rv-logo__sub{
+  font-size:.78rem; font-weight:800; letter-spacing:2.4px;
+  text-transform:uppercase; line-height:1; opacity:.95;
+}
+.tour-title {
+  font-family: 'Great Vibes', cursive;
+  margin-top: 25px; /* coboară textul */
+  font-size: clamp(36px, 5vw, 64px); /* scalare fluidă pe mobil/desktop */
+  color: #fff;
+  text-shadow: 0 3px 6px rgba(0,0,0,0.6);
+  margin: 20px 0;
+  text-align: center;
+}
+.tour-title-glow {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(30px, 5vw, 56px);
+  color: #fff;
+  text-shadow: 0 0 12px rgba(255,255,255,0.6), 0 0 24px rgba(255,193,83,0.8);
+  text-align: center;
+}
+
+/* Burger (dreapta) */
+.rv-burger{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:60px; height:60px; padding:0; border:0; cursor:pointer;
+  background:transparent; border-radius:12px;
+}
+.rv-burger:hover{ background:rgba(255,255,255,.08); }
+.rv-burger svg rect{ fill:#fff; transition:transform .2s; }
+.rv-burger:active svg rect{ transform:scaleX(.96); }
+
+/* Panou meniu (stil compact ca în poză) */
+.rv-menu{
+  position:absolute; right:0; top:100%; margin-top:6px;
+  background:rgba(8,18,30,.92);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:14px; box-shadow:var(--shadow);
+  min-width:220px; padding:6px;
+  display:none; /* se arată cu .is-open */
+}
+.rv-menu.is-open{ display:block; }
+.rv-menu__list{ list-style:none; margin:0; padding:4px; }
+.rv-menu__list a{
+  display:block; padding:10px 12px; border-radius:10px; color:#fff; text-decoration:none;
+}
+.rv-menu__list a:hover{ background:rgba(255,255,255,.08); }
+
+/* === Breadcrumbs === */
+.rv-breadcrumbs {
+  font-size: 14px;
+  color: #444;
+  padding: 10px 15px;
+  margin-left: -31.5px;
+ /* ajustează până cade fix sub A */
+  background: transparent;
+}
+
+.rv-breadcrumbs a {
+  text-decoration: none;
+  color: #c00; /* roșu pentru linkuri */
+  transition: color 0.2s ease-in-out;
+}
+
+.rv-breadcrumbs a:hover {
+  color: #900;
+}
+
+.rv-breadcrumbs__sep {
+  margin: 0 6px;
+  color: #666;
+}
+
+.rv-breadcrumbs span[aria-current="page"] {
+  font-weight: bold;
+  color: #222;
+}
+.about-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  animation: fadeInDown 1s ease;
+}
+
+.about-text {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+  animation: fadeInUp 1.5s ease;
+}
+
+/* Animații */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile-only: coboară puțin burger-ul și păstrează bara compactă */
+@media (max-width: 768px){
+  .rv-burger{
+    position: relative;
+    top: 27px;              /* ajustează 6–10px după gust */
+  }
+
+  /* opțional: micșorează vertical padding-ul barei ca să nu pară mai înaltă */
+  .rv-header__inner{
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+}
+/* ===== Desktop: bara mai vizibilă ===== */
+@media (min-width: 1024px){
+
+  /* bară mai „groasă” și aerisită */
+  .rv-header__inner{
+    padding: 18px 0;
+    gap: 22px;                /* mai mult spațiu între logo, tagline, burger */
+  }
+
+  /* logo mai mare + “AGENCY” mai lizibil */
+  .rv-logo__img{ height: 64px; }
+  .rv-logo__sub{
+    font-size: .9rem;
+    letter-spacing: 3px;
+  }
+
+  /* tagline mai mare și cu umbră mai puternică */
+  .tour-title{
+    font-size: clamp(40px, 6vw, 64px);
+    text-shadow: 0 4px 14px rgba(0,0,0,.6);
+  }
+
+  /* burger mai mare */
+  .rv-burger{
+    width: 56px; height: 56px;
+  }
+  .rv-burger svg{
+    width: 28px; height: 28px;
+  }
+
+  /* breadcrumb puțin mai mare și aliniat sub “AGENCY” */
+  .rv-breadcrumbs{
+    font-size: 16px;
+    margin-left: 0;       /* anulăm hack-ul de pe mobil */
+    padding: 12px 0;
+  }
+  .rv-breadcrumbs .container{
+    padding-left: 120px;  /* ~64 (logo) + 22 (gap) + 34 rezerva — ajustează la nevoie */
+  }
+}
+/* 📱 Pentru ecrane mici (mobil) */
+@media (max-width: 768px) {
+  .logo img {
+    max-width: 50px;   /* micșorează logo */
+  }
+
+  .site-title {
+    font-size: 1.2rem; /* micșorează textul */
+  }
+
+  .menu-toggle {
+    font-size: 1.4rem; /* micșorează burger menu */
+  }
+}
+
+/* 💻 Pentru desktop */
+@media (min-width: 769px) {
+  .logo img {
+    max-width: 100px;  /* mărește logo */
+  }
+
+  .site-title {
+    font-size: 2.2rem; /* mărește textul */
+  }
+
+  .menu-toggle {
+    font-size: 2rem;   /* mărește burger menu */
+  }
+}
+@media (max-width: 768px){
+  .tour-title {
+    margin-left: 10px;   /* mută textul spre dreapta */
+    /* poți ajusta 12px la 15px sau 20px dacă vrei mai mult spațiu */
+  }
+}
+
+/* Bloc secțiune + head */
+.home-block { padding:120px 0 8px; }
+.block-head{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px; margin-bottom:10px;
+}
+.block-head h2{
+  margin:0; font-size:clamp(20px,2.6vw,28px); color:var(--ink, #0E1726);
+}
+
+/* Carusel scroll-snap */
+.carousel{
+  display:grid;
+  grid-auto-flow:column;
+  grid-auto-columns:min(78%, 360px);
+  gap:14px;
+  overflow:auto;
+  padding:6px 12px 16px;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+}
+.carousel::-webkit-scrollbar{ height:8px }
+.carousel::-webkit-scrollbar-thumb{ background:#dfe7f2; border-radius:8px }
+
+/* Card generic */
+.card{
+  position:relative; display:block; border-radius:16px; overflow:hidden;
+  background:#f7fbff; color:#0E1726;
+  box-shadow:0 10px 24px rgba(16,38,74,.08), 0 2px 8px rgba(16,38,74,.05);
+  scroll-snap-align:start;
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.card:hover{ transform:translateY(-2px); box-shadow:0 16px 36px rgba(16,38,74,.12) }
+.card img{ width:100%; height:200px; object-fit:cover; display:block }
+.card .card-body{ padding:12px 14px }
+.card h3{ margin:0 0 6px; font-size:1.1rem }
+.card p{ margin:0; color:#3a536c; font-size:.95rem }
+
+/* Continente: ușor diferit */
+.carousel.continents .card img{ height:180px }
+.carousel.continents .card h3{ font-weight:800 }
+
+/* Butoane prev/next */
+.block-ctas{ display:flex; gap:8px }
+.carousel-btn{
+  width:36px; height:36px; border-radius:10px; border:1px solid #e3eef9;
+  background:#fff; color:#10253f; font-weight:800; cursor:pointer;
+}
+.carousel-btn:hover{ background:#f4f8ff }
+
+/* Desktop: carduri mai mari */
+@media (min-width:1024px){
+  .carousel{ grid-auto-columns:min(32%, 360px) }
+}
+
+/* (opțional) Carduri Coming soon – dacă le folosești */
+.card.coming-soon{ position:relative; opacity:.75; pointer-events:none; }
+.card.coming-soon::after{
+  content:"Coming soon"; position:absolute; inset:0; display:grid; place-items:center;
+  background:rgba(0,0,0,.45); color:#fff; font-weight:700; letter-spacing:.3px; border-radius:inherit;
+}
+html {
+  scroll-behavior: smooth;
+}
+/* === Booking form (Europa) === */
+.booking-block{ 
+  margin-top: 150px;
+  padding:20px 0 40px; }
+.block-sub{ margin:0; opacity:.85; }
+
+.booking-form{
+  background: rgba(8,18,30,.35);
+  backdrop-filter: saturate(160%) blur(6px);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;
+  padding:16px;
+  color:#EAF6FF;
+  box-shadow:0 8px 24px rgba(10,27,44,.18);
+}
+.booking-form .grid{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap:14px;
+}
+.booking-form .field{ display:flex; flex-direction:column; gap:6px; }
+.booking-form label{ font-size:.95rem; opacity:.95; }
+.booking-form input,
+.booking-form select,
+.booking-form textarea{
+  width:100%;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.06);
+  color:#EAF6FF;
+  border-radius:10px;
+  padding:10px 12px;
+  outline:none;
+}
+.booking-form input:focus,
+.booking-form select:focus,
+.booking-form textarea:focus{
+  border-color:#EAF6FF;
+  box-shadow:0 0 0 3px rgba(234,246,255,.18);
+}
+.booking-form .err{
+  color:#ffb3b3; min-height:1em; font-size:.85rem;
+}
+
+.booking-form .agree{
+  display:flex; align-items:center; gap:10px;
+  margin-top:8px; font-size:.95rem;
+}
+.booking-form .agree a{ color:#fff; text-decoration:underline; }
+
+.booking-form .actions{
+  display:flex; align-items:center; gap:14px;
+  margin-top:12px;
+}
+.btn-primary{
+  appearance:none; border:1px solid #e3eef9; border-radius:12px;
+  background:#fff; color:#10253f; font-weight:800; cursor:pointer;
+  padding:10px 16px;
+}
+.btn-primary:hover{ background:#f4f8ff; }
+
+#bk-status{ font-size:.95rem; opacity:.9; }
+
+/* 2 col pe ecrane mari */
+@media (min-width:768px){
+  .booking-form .grid{ grid-template-columns: repeat(2, 1fr); }
+  .booking-form .span-2{ grid-column: span 2; }
+}
+/* ==== Mobile header fix (<= 768px) ==== */
+@media (max-width: 768px){
+  .rv-header__inner{
+    display: grid;
+    grid-template-columns: auto 1fr auto; /* logo | titlu | burger */
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+  }
+
+  /* logo un pic mai mic */
+  .rv-logo__img{ height: 52px; }
+  .rv-logo__sub{ font-size: .75rem; }
+
+  /* burger mai compact */
+  .rv-burger{ width: 44px; height: 44px; }
+
+  /* TITLUL – exact 2 rânduri, fără margini mari */
+  .tour-title{
+    grid-column: 2;            /* stă pe coloana din mijloc */
+    margin: 0;                 /* elimină marginile care „împing” bara */
+    font-size: clamp(20px, 6vw, 28px);
+    line-height: 1.15;         /* rânduri mai apropiate */
+    max-width: 14ch;           /* ~2 rânduri pentru textul tău */
+    text-align: center;
+    white-space: normal;       /* permite doar 2 rânduri, nu 3+ */
+  }
+
+  /* dacă aveai pe undeva aceste reguli, le neutralizează pe mobil */ margin-top: 0 !important; margin-left: 0 !important; }
+.offers-title {
+  font-size: 2.2rem;        /* mărește textul */
+  font-weight: 700;         /* bold */
+  text-align: center;       /* centrat pe pagină */
+  color: #00c4cc;           /* turcoaz (poți schimba) */
+  margin: 40px 0 20px;      /* spațiere sus și jos */
+  position: relative;
+  display: inline-block;
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px #00c4cc, 0 0 10px #00c4cc;
+  }
+  to {
+    text-shadow: 0 0 20px #00f0ff, 0 0 30px #00f0ff;
+  }
+}
+/* ===== Recomandări (namespaced, ca să nu dubleze caruselul existent) ===== */
+.recos .block-head h2{
+  margin:0;
+  font-size:clamp(22px,2.8vw,30px);
+  color:#EAF6FF;
+}
+
+.recos .carousel{
+  display:grid;
+  grid-auto-flow:column;
+  grid-auto-columns:min(78%, 360px);
+  gap:14px;
+  overflow:auto;
+  padding:6px 12px 16px;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+}
+.recos .carousel::-webkit-scrollbar{ height:8px }
+.recos .carousel::-webkit-scrollbar-thumb{ background:#dfe7f2; border-radius:8px }
+
+/* Card highlight */
+.recos .card{
+  position:relative; display:block; border-radius:16px; overflow:hidden;
+  background:#f7fbff; color:#0E1726;
+  box-shadow:0 10px 24px rgba(16,38,74,.08), 0 2px 8px rgba(16,38,74,.05);
+  scroll-snap-align:start;
+  text-decoration:none;
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.recos .card:hover{ transform:translateY(-2px); box-shadow:0 16px 36px rgba(16,38,74,.12) }
+.recos .card img{ width:100%; height:210px; object-fit:cover; display:block }
+.recos .card .card-body{ padding:12px 14px }
+.recos .card h3{ margin:6px 0 6px; font-size:1.12rem; font-weight:800 }
+.recos .card p{ margin:0; color:#3a536c; font-size:.95rem }
+
+/* Badge mic de categorie */
+.recos .pill{
+  display:inline-block; font-size:.78rem; font-weight:700; letter-spacing:.3px;
+  padding:4px 10px; border-radius:999px; background:#eef6ff; color:#0E1726;
+}
+
+/* Coming soon overlay (inactiv) */
+.recos .card.coming-soon{ position:relative; opacity:.8; pointer-events:none; }
+.recos .card.coming-soon::after{
+  content:"ÎN CURÂND"; position:absolute; inset:0; display:grid; place-items:center;
+  background:rgba(0,0,0,.45); color:#fff; font-weight:800; letter-spacing:.3px; border-radius:inherit;
+}
+
+/* Butoane prev/next (reuse din site, dar fără conflict) */
+.recos .block-ctas{ display:flex; gap:8px }
+.recos .carousel-btn{
+  width:36px; height:36px; border-radius:10px; border:1px solid #e3eef9;
+  background:#fff; color:#10253f; font-weight:800; cursor:pointer;
+}
+.recos .carousel-btn:hover{ background:#f4f8ff }
+
+/* Desktop: 3 carduri vizibile */
+@media (min-width:1024px){
+  .recos .carousel{ grid-auto-columns:min(32%, 360px) }
+}
+/* === FOOTER STYLING === */
+footer {
+  position: relative;
+  padding: 40px 20px 80px; /* mai mult padding jos ca să lăsăm loc palmierilor */
+  text-align: center;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+footer a {
+  color: #ccc;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+footer a:hover {
+  color: #fff;
+}
+
+/* === PALMIERI SVG ANIMAȚI === */
+.footer-palms {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px; /* înălțime controlată pentru palmieri */
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  pointer-events: none; /* să nu afecteze click-urile pe linkuri */
+}
+
+.footer-palms svg {
+  height: 60px;
+  width: auto;
+  animation: sway 3s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+/* mișcare de balans pentru palmieri */
+@keyframes sway {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(2deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-2deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  footer {
+    font-size: 13px;
+    padding: 30px 15px 90px; /* și mai mult padding jos pe mobil */
+  }
+
+  .footer-palms {
+    height: 70px; /* palmierii mai înalți pe mobil */
+  }
+
+  .footer-palms svg {
+    height: 70px;
+  }
+}
