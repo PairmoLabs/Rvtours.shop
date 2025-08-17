@@ -26,7 +26,7 @@ document.addEventListener('keydown', (e)=>{
 const ROUTES = {
   acasa:       { label: "Acasă",       path: ["Acasă"],                     target: null },
   "despre-noi":{ label: "Despre noi",  path: ["Acasă", "Despre noi"],       target: "#despre-noi" },
-  oferte:      { label: "Oferte",      path: ["Acasă", "Oferte"],           target: "#ct-caro" },
+  oferte:      { label: "Oferte",      path: ["Acasă", "Oferte"],           target: "#toate-ofertele" },
   rezervari: { label: "Rezervări",
              path: ["Acasă", "Rezervări"],
              target: "#rezervari-europa" },
