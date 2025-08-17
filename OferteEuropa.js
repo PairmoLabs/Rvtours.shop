@@ -31,6 +31,11 @@ const ROUTES = {
     path: ["Acasă"], 
     redirect: "index.html" 
   },
+  europa: {
+    label: "Europa",
+    path: ["Acasă", "Europa"],
+    target: "null"
+  },
   oferte: { 
     label: "Oferte", 
     path: ["Acasă", "Oferte"], 
