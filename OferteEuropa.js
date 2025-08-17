@@ -39,7 +39,7 @@ const ROUTES = {
   },
   Europa: {
     label: "Europa",
-    path: ["Acasă", "Europa"],
+    path: ["Acasă","Oferte","Europa"],
     // dacă vrei să facă și scroll în pagină
     target: "#toate-ofertele"   // (secțiunea cu cardurile Europa)
   },
