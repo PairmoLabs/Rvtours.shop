@@ -37,7 +37,7 @@ const ROUTES = {
     // trimite înapoi în index, la caruselul Toate ofertele
     redirect: "index.html#toate-ofertele"
   },
-  europa: {
+  Europa: {
     label: "Europa",
     path: ["Acasă", "Europa"],
     // dacă vrei să facă și scroll în pagină
