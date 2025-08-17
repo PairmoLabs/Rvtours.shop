@@ -59,7 +59,7 @@ const bcEl = document.getElementById("rv-bc");
 const menuLinks = document.querySelectorAll('[data-route]');
 
 function go(route) {
-  const key = ROUTES[route] ? route : "europa";  // <- fallback pe europa
+  const key = ROUTES[route] ? route : "Europa";  // <- fallback pe europa
   const trail = ROUTES[key].path;
   bcEl.innerHTML = trail
     .map((seg, i) => {
