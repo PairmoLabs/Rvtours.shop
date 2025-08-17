@@ -75,15 +75,14 @@ function go(route) {
     document.querySelector(targetSel)?.scrollIntoView({ behavior: "smooth" });
   }
 }
-}
-
-// navigare din butoanele back/forward
+// back/forward
 window.addEventListener("popstate", () => {
-  go((location.hash || "#acasa").substring(1));
+  go((location.hash || "#Europa").substring(1));
 });
 
 // init pe load
-go((location.hash || "#acasa").substring(1));
+go((location.hash || "#Europa").substring(1));
+
 
 menuLinks.forEach(a => {
   a.addEventListener("click", (e) => {
@@ -173,8 +172,4 @@ hookCarouselButtons();
     document.getElementById('bk-destination').value = 'Portugalia';
   });
 })();
-// apelăm funcția go() pe baza hash-ului din URL sau default "europa"
-document.addEventListener("DOMContentLoaded", () => {
-  const initialRoute = (location.hash || "#europa").substring(1);
-  go(initialRoute);
-});
+
