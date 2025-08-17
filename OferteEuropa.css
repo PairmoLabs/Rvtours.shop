@@ -1,0 +1,483 @@
+/* ===== Design tokens (din vechiul site) ===== */
+:root{
+  --mango:#FFA63D;
+  --mango-deep:#FF8A00;
+  --sky:#58C6FF;
+  --aqua:#00D1C1;
+  --ink:#0E1726;
+  --paper:#F9FBFF;
+  --radius:20px;
+  --shadow:0 8px 24px rgba(10,27,44,.2);
+}
+
+*{ box-sizing:border-box; }
+html,body{
+  min-height:100%;
+  margin:0;
+}
+
+/* ===== BACKGROUND din vechiul site (pe TOT) ===== */
+body{
+  color:#EAF6FF;
+  background:
+    linear-gradient(160deg, var(--mango) 0%, var(--mango-deep) 30%, #0b2a4a 100%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* container general */
+.container{
+  width:min(1100px,92%);
+  margin-inline:auto;
+  padding: 0 16px;
+}
+.rv-header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+
+  background:rgba(8,18,30,.55);
+  backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.rv-header__inner{
+  display:grid;
+  grid-template-columns:auto 1fr auto; /* logo | tagline | burger */
+  align-items:center;
+  gap:14px;
+  padding:10px 0;
+  position:relative; /* ancoră pentru panoul de meniu */
+}
+
+/* Logo + AGENCY (stivuit și centrat) */
+.rv-logo{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:2px;
+  text-decoration:none;
+  color:#fff;
+}
+
+.rv-logo__img{
+  height:60px;
+  width:auto;
+  display:block;
+}
+
+.rv-logo__sub{
+  font-size:.78rem;
+  font-weight:800;
+  letter-spacing:2.4px;
+  text-transform:uppercase;
+  line-height:1;
+  opacity:.95;
+}
+
+.rv-burger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  background: transparent;
+  border-radius: 12px;
+}
+
+.rv-burger:hover {
+  background: rgba(255,255,255,.08);
+}
+
+.rv-burger svg rect {
+  fill: #fff;
+  transition: transform .2s;
+}
+
+.rv-burger:active svg rect {
+  transform: scaleX(.96);
+}
+/* === Panou meniu (model compact ca in poză) */
+.rv-menu{
+  position:absolute;
+  right:0; top:100%;
+  margin-top:6px;
+
+  background:rgba(8,18,30,.92);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:14px;
+  box-shadow:var(--shadow);
+  min-width:220px;
+  padding:6px;
+  display:none; /* se arată cu .is-open */
+}
+.rv-menu.is-open{
+  display:block;
+}
+.rv-menu__list{ list-style:none; margin:0; padding:4px; }
+.rv-menu__list a{
+  display:block;
+  padding:10px 12px;
+  border-radius:10px;
+  color:#fff; text-decoration:none;
+}
+.rv-menu__list a:hover{
+  background:rgba(255,255,255,.08);
+}
+
+/* === Footer simplu (același fundal, doar un separator) */
+footer{ border-top:1px solid rgba(255,255,255,.15); padding:26px 0; opacity:.9; }
+
+/* === Breadcrumbs === */
+.rv-breadcrumbs {
+  font-size:14px;
+  color:#444;
+  padding: 10px 15px;
+  margin-left:-138px; /* ajustează până cade fix sub A */
+  background:transparent;
+}
+.tour-title {
+  font-family: 'Great Vibes', cursive;
+  margin-top: -60px;         /* coboară textul */
+  font-size: clamp(36px, 5vw, 64px); /* scalare fluidă pe mobil/desktop */
+  color: #fff;
+  text-shadow: 0 3px 6px rgba(0,0,0,0.6);
+  margin: 20px 0;
+  text-align: center;
+}
+
+.tour-title-glow {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(30px, 5vw, 56px);
+  color: #fff;
+  text-shadow: 
+    0 0 12px rgba(255,255,255,0.6), 
+    0 0 24px rgba(255,193,83,0.8);
+  text-align: center;
+}
+
+.rv-breadcrumbs a {
+  text-decoration: none;
+  color: #c00; /* roșu pentru linkuri */
+  transition: color 0.2s ease-in-out;
+}
+
+.rv-breadcrumbs a:hover {
+  color: #900;
+}
+
+.rv-breadcrumbs__sep {
+  margin: 0 6px;
+  color: #666;
+}
+
+.rv-breadcrumbs span[aria-current="page"] {
+  font-weight: bold;
+  color: #222;
+}
+
+.about-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  animation: fadeInDown 1s ease;
+}
+
+.about-text {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+  animation: fadeInUp 1.5s ease;
+}
+
+/* Animații */
+@keyframes fadeInDown {
+  from { 
+    opacity: 0; 
+    transform: translateY(-30px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes fadeInUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(30px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+/* Mobile-only: coboară puțin burger-ul și păstrează bara compactă */
+@media (max-width: 768px){
+  .rv-burger {
+    position: relative;
+    top: 27px;  /* ajustează 6–10px după gust */
+  }
+
+  /* opțional: micșorează vertical padding-ul barei ca să nu pară mai înaltă */
+  .rv-header__inner {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+}
+
+/* ===== Desktop: bara mai vizibilă ===== */
+@media (min-width: 1024px){
+  /* bară mai „groasă” și aerisită */
+  .rv-header__inner {
+    padding: 18px 0;
+    gap: 22px;  /* mai mult spațiu între logo, tagline, burger */
+  }
+}
+    /* ===== Desktop: bara mai vizibilă ===== */
+    @media (min-width: 1024px){
+
+        /* bară mai „groasă” și aerisită */
+        .rv-header__inner{
+            padding: 18px 0;
+            gap: 22px;
+            /* mai mult spațiu între logo, tagline, burger */
+        }
+    }
+
+
+    /* burger mai mare */
+    .rv-burger svg{
+        width: 28px; height: 28px;
+    }
+
+    /* breadcrumb puțin mai mare și aliniat sub „AGENCY” */
+    .rv-breadcrumbs .container{
+        padding-left: 120px; 
+        /* ~64 (logo) + 22 (gap) + 34 rezerva – ajustează la nevoie */
+}
+@media (max-width: 768px){
+  .tour-title {
+    font-size: clamp(20px, 6px, 28px);
+    /* ajustează dimensiunea */
+    line-height: 1.4;
+    /* face textul mai compact */
+  }
+}
+
+.block-head{
+  display:flex; 
+  align-items:center; 
+  justify-content:space-between; 
+  gap:12px; 
+  margin-bottom:10px;
+}
+
+/* Card generic */
+.card{
+  position:relative; 
+  display:block; 
+  border-radius:16px; 
+  overflow:hidden; 
+  background:#f7fbff; 
+  color:#0E1726;
+}
+/* Bloc secțiune + head */
+.home-block{ padding:24px 0 8px; }               /* spațiu sus față de ce e înainte */
+.block-head h2{
+  margin:0; font-size:clamp(20px,2.6vw,28px); color:var(--ink,#EAF6FF);
+}
+
+/* Carusel scroll-snap (same vibe ca pe index) */
+.carousel{
+  display:grid;
+  grid-auto-flow:column;
+  grid-auto-columns:min(78%, 360px);
+  gap:14px;
+  overflow:auto;
+  padding:6px 12px 16px;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+}
+.carousel::-webkit-scrollbar{ height:8px }
+.carousel::-webkit-scrollbar-thumb{ background:#dfe7f2; border-radius:8px }
+
+
+.card:hover{ transform:translateY(-2px); box-shadow:0 16px 36px rgba(16,38,74,.12) }
+.card img{ width:100%; height:200px; object-fit:cover; display:block }
+.card .card-body{ padding:12px 14px }
+.card h3{ margin:0 0 6px; font-size:1.1rem }
+.card p{ margin:0; color:#3a536c; font-size:.95rem }
+
+/* Continente (ușor diferit) */
+.carousel.continents .card img{ height:180px }
+.carousel.continents .card h3{ font-weight:800 }
+
+/* Butoane prev/next */
+.block-ctas{ display:flex; gap:8px }
+.carousel-btn{
+  width:36px; height:36px; border-radius:10px; border:1px solid #e3eef9;
+  background:#fff; color:#10253f; font-weight:800; cursor:pointer;
+}
+.carousel-btn:hover{ background:#f4f8ff }
+
+/* Carduri Coming soon */
+.card.coming-soon{ position:relative; opacity:.75; pointer-events:none; }
+.card.coming-soon::after{
+  content:"Coming soon"; position:absolute; inset:0; display:grid; place-items:center;
+  background:rgba(0,0,0,.45); color:#fff; font-weight:700; letter-spacing:.3px; border-radius:inherit;
+}
+
+/* Desktop: 3 cărți pe ecran (aprox) */
+@media (min-width:1024px){
+  .carousel{ grid-auto-columns:min(32%, 360px) }
+}
+/* === Booking form (Europa) === */
+.booking-block{ padding:20px 0 40px; 
+margin-top: 60px;   /* ajustează valoarea după cum vrei */
+}
+.block-sub{ margin:0; opacity:.85; }
+
+.booking-form{
+  background: rgba(8,18,30,.35);
+  backdrop-filter: saturate(160%) blur(6px);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;
+  padding:16px;
+  color:#EAF6FF;
+  box-shadow:0 8px 24px rgba(10,27,44,.18);
+}
+.booking-form .grid{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap:14px;
+}
+.booking-form .field{ display:flex; flex-direction:column; gap:6px; }
+.booking-form label{ font-size:.95rem; opacity:.95; }
+.booking-form input,
+.booking-form select,
+.booking-form textarea{
+  width:100%;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.06);
+  color:#EAF6FF;
+  border-radius:10px;
+  padding:10px 12px;
+  outline:none;
+}
+.booking-form input:focus,
+.booking-form select:focus,
+.booking-form textarea:focus{
+  border-color:#EAF6FF;
+  box-shadow:0 0 0 3px rgba(234,246,255,.18);
+}
+.booking-form .err{
+  color:#ffb3b3; min-height:1em; font-size:.85rem;
+}
+
+.booking-form .agree{
+  display:flex; align-items:center; gap:10px;
+  margin-top:8px; font-size:.95rem;
+}
+.booking-form .agree a{ color:#fff; text-decoration:underline; }
+
+.booking-form .actions{
+  display:flex; align-items:center; gap:14px;
+  margin-top:12px;
+}
+.btn-primary{
+  appearance:none; border:1px solid #e3eef9; border-radius:12px;
+  background:#fff; color:#10253f; font-weight:800; cursor:pointer;
+  padding:10px 16px;
+}
+.btn-primary:hover{ background:#f4f8ff; }
+
+#bk-status{ font-size:.95rem; opacity:.9; }
+
+/* 2 col pe ecrane mari */
+@media (min-width:768px){
+  .booking-form .grid{ grid-template-columns: repeat(2, 1fr); }
+  .booking-form .span-2{ grid-column: span 2; }
+}
+html {
+  scroll-behavior: smooth;
+}
+
+.block-head .block-sub {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-left: 6px;       /* mic spațiu între titlu și subtitlu */
+  opacity: .8;            /* opțional, mai discret */
+}
+/* ===== Footer animat cu palmieri ===== */
+/* === FOOTER STYLING === */
+footer {
+  position: relative;
+  padding: 40px 20px 80px; /* mai mult padding jos ca să lăsăm loc palmierilor */
+  text-align: center;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+footer a {
+  color: #ccc;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+footer a:hover {
+  color: #fff;
+}
+
+/* === PALMIERI SVG ANIMAȚI === */
+.footer-palms {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px; /* înălțime controlată pentru palmieri */
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  pointer-events: none; /* să nu afecteze click-urile pe linkuri */
+}
+
+.footer-palms svg {
+  height: 60px;
+  width: auto;
+  animation: sway 3s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+/* mișcare de balans pentru palmieri */
+@keyframes sway {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(2deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-2deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  footer {
+    font-size: 13px;
+    padding: 30px 15px 90px; /* și mai mult padding jos pe mobil */
+  }
+
+  .footer-palms {
+    height: 70px; /* palmierii mai înalți pe mobil */
+  }
+
+  .footer-palms svg {
+    height: 70px;
+  }
+}
