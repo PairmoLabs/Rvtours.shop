@@ -58,32 +58,23 @@ const ROUTES = {
 const bcEl = document.getElementById("rv-bc");
 const menuLinks = document.querySelectorAll('[data-route]');
 
-// schimbare rută + randare breadcrumb
 function go(route) {
-  const key = ROUTES[route] ? route : "acasa";
+  const key = ROUTES[route] ? route : "europa";  // <- fallback pe europa
   const trail = ROUTES[key].path;
-  // construim breadcrumb-ul
   bcEl.innerHTML = trail
     .map((seg, i) => {
       const isLast = i === trail.length - 1;
-      if (isLast) {
-        return `<span aria-current="page">${seg}</span>`;
-      }
+      if (isLast) return `<span aria-current="page">${seg}</span>`;
       const href = i === 0 ? "#acasa" : "#";
       return `<a href="${href}" data-route="${i===0 ? 'acasa' : ''}">${seg}</a><span class="rv-breadcrumbs__sep">/</span>`;
     })
     .join("");
-  
-  // scroll la target dacă există
+
   const targetSel = ROUTES[key].target;
   if (targetSel) {
-    const targetEl = document.querySelector(targetSel);
-    if (targetEl) {
-      targetEl.scrollIntoView({
-        behavior: "smooth"
-      });
-    }
+    document.querySelector(targetSel)?.scrollIntoView({ behavior: "smooth" });
   }
+}
 }
 
 // navigare din butoanele back/forward
